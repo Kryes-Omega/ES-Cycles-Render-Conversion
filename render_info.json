@@ -1,0 +1,674 @@
+{
+    "Aerie": {
+        "sprite": "aerie",
+        "shape": [
+            200,
+            140
+        ],
+        "blend": "aerie.blend"
+    },
+    "Argosy": {
+        "sprite": "argosy",
+        "shape": [
+            190,
+            90
+        ],
+        "blend": "argosy.blend"
+    },
+    "Arrow": {
+        "sprite": "arrow",
+        "shape": [
+            140,
+            60
+        ],
+        "blend": "arrow.blend"
+    },
+    "Bactrian": {
+        "sprite": "bactrian",
+        "shape": [
+            470,
+            180
+        ],
+        "blend": "bactrian.blend"
+    },
+    "Barb": {
+        "sprite": "barb",
+        "shape": [
+            60,
+            60
+        ],
+        "blend": "barb.blend"
+    },
+    "Barb\" \"Barb (Proton)": {
+        "sprite": "barbp",
+        "shape": [
+            60,
+            60
+        ],
+        "blend": "barbp.blend"
+    },
+    "Bastion": {
+        "sprite": "bastion",
+        "shape": [
+            200,
+            140
+        ],
+        "blend": "bastion.blend"
+    },
+    "Behemoth": {
+        "sprite": "behemoth",
+        "shape": [
+            320,
+            220
+        ],
+        "blend": "behemoth.blend"
+    },
+    "Berserker": {
+        "sprite": "berserker",
+        "shape": [
+            100,
+            100
+        ],
+        "blend": "berserker.blend"
+    },
+    "Blackbird": {
+        "sprite": "blackbird",
+        "shape": [
+            130,
+            160
+        ],
+        "blend": "blackbird.blend"
+    },
+    "Bounder": {
+        "sprite": "bounder",
+        "shape": [
+            170,
+            110
+        ],
+        "blend": "bounder.blend"
+    },
+    "Boxwing": {
+        "sprite": "boxwing",
+        "shape": [
+            70,
+            60
+        ],
+        "blend": "boxwing.blend"
+    },
+    "Bulk Freighter": {
+        "sprite": "bulk freighter",
+        "shape": [
+            420,
+            180
+        ],
+        "blend": "bulk freighter.blend"
+    },
+    "Carrier": {
+        "sprite": "carrier",
+        "shape": [
+            400,
+            270
+        ],
+        "blend": "carrier.blend"
+    },
+    "Class C Freighter": {
+        "sprite": "bulk freighter",
+        "shape": [
+            420,
+            180
+        ],
+        "blend": "bulk freighter.blend"
+    },
+    "Clipper": {
+        "sprite": "clipper",
+        "shape": [
+            110,
+            100
+        ],
+        "blend": "clipper.blend"
+    },
+    "Combat Drone": {
+        "sprite": "combat drone",
+        "shape": [
+            60,
+            40
+        ],
+        "blend": "combat drone.blend"
+    },
+    "Corvette": {
+        "sprite": "corvette",
+        "shape": [
+            240,
+            120
+        ],
+        "blend": "corvette.blend"
+    },
+    "Cruiser": {
+        "sprite": "cruiser",
+        "shape": [
+            320,
+            180
+        ],
+        "blend": "cruiser.blend"
+    },
+    "Dagger": {
+        "sprite": "dagger",
+        "shape": [
+            72,
+            48
+        ],
+        "blend": "dagger.blend"
+    },
+    "Dreadnought": {
+        "sprite": "dreadnought",
+        "shape": [
+            350,
+            190
+        ],
+        "blend": "dreadnought.blend"
+    },
+    "Falcon": {
+        "sprite": "falcon",
+        "shape": [
+            300,
+            160
+        ],
+        "blend": "falcon.blend"
+    },
+    "Finch": {
+        "sprite": "finch",
+        "shape": [
+            80,
+            60
+        ],
+        "blend": "finch.blend"
+    },
+    "Firebird": {
+        "sprite": "firebird",
+        "shape": [
+            150,
+            130
+        ],
+        "blend": "firebird.blend"
+    },
+    "Flivver": {
+        "sprite": "flivver",
+        "shape": [
+            70,
+            90
+        ],
+        "blend": "flivver.blend"
+    },
+    "Freighter": {
+        "sprite": "freighter",
+        "shape": [
+            200,
+            70
+        ],
+        "blend": "freighter.blend"
+    },
+    "Frigate": {
+        "sprite": "frigate",
+        "shape": [
+            200,
+            124
+        ],
+        "blend": "frigate.blend"
+    },
+    "Fury": {
+        "sprite": "fury",
+        "shape": [
+            80,
+            80
+        ],
+        "blend": "fury.blend"
+    },
+    "Gunboat": {
+        "sprite": "gunboat",
+        "shape": [
+            120,
+            100
+        ],
+        "blend": "gunboat.blend"
+    },
+    "Hauler I": {
+        "sprite": "hauler i",
+        "shape": [
+            250,
+            180
+        ],
+        "blend": "hauler i.blend"
+    },
+    "Hauler II": {
+        "sprite": "hauler ii",
+        "shape": [
+            330,
+            180
+        ],
+        "blend": "hauler ii.blend"
+    },
+    "Hauler III": {
+        "sprite": "hauler iii",
+        "shape": [
+            400,
+            180
+        ],
+        "blend": "hauler iii.blend"
+    },
+    "Hawk": {
+        "sprite": "hawk",
+        "shape": [
+            90,
+            100
+        ],
+        "blend": "hawk.blend"
+    },
+    "Headhunter": {
+        "sprite": "headhunter",
+        "shape": [
+            120,
+            100
+        ],
+        "blend": "headhunter.blend"
+    },
+    "Heavy Shuttle": {
+        "sprite": "heavy shuttle",
+        "shape": [
+            80,
+            50
+        ],
+        "blend": "heavy shuttle.blend"
+    },
+    "Lance": {
+        "sprite": "lance",
+        "shape": [
+            70,
+            52
+        ],
+        "blend": "lance.blend"
+    },
+    "Leviathan": {
+        "sprite": "leviathan",
+        "shape": [
+            260,
+            170
+        ],
+        "blend": "leviathan.blend"
+    },
+    "Manta": {
+        "sprite": "manta",
+        "shape": [
+            170,
+            150
+        ],
+        "blend": "manta.blend"
+    },
+    "Modified Argosy": {
+        "sprite": "modified argosy",
+        "shape": [
+            190,
+            90
+        ],
+        "blend": "modified argosy.blend"
+    },
+    "Mule": {
+        "sprite": "mule",
+        "shape": [
+            260,
+            110
+        ],
+        "blend": "mule.blend"
+    },
+    "Nest": {
+        "sprite": "nest",
+        "shape": [
+            250,
+            180
+        ],
+        "blend": "nest.blend"
+    },
+    "Osprey": {
+        "sprite": "osprey",
+        "shape": [
+            220,
+            190
+        ],
+        "blend": "osprey.blend"
+    },
+    "Protector": {
+        "sprite": "protector",
+        "shape": [
+            250,
+            210
+        ],
+        "blend": "protector.blend"
+    },
+    "Quicksilver": {
+        "sprite": "quicksilver",
+        "shape": [
+            110,
+            80
+        ],
+        "blend": "quicksilver.blend"
+    },
+    "Rainmaker": {
+        "sprite": "rainmaker",
+        "shape": [
+            100,
+            102
+        ],
+        "blend": "rainmaker.blend"
+    },
+    "Raven": {
+        "sprite": "raven",
+        "shape": [
+            140,
+            200
+        ],
+        "blend": "raven.blend"
+    },
+    "Roost": {
+        "sprite": "roost",
+        "shape": [
+            325,
+            180
+        ],
+        "blend": "roost.blend"
+    },
+    "Scout": {
+        "sprite": "scout",
+        "shape": [
+            90,
+            60
+        ],
+        "blend": "scout.blend"
+    },
+    "Shuttle": {
+        "sprite": "shuttle",
+        "shape": [
+            70,
+            50
+        ],
+        "blend": "shuttle.blend"
+    },
+    "Skein": {
+        "sprite": "skein",
+        "shape": [
+            400,
+            180
+        ],
+        "blend": "skein.blend"
+    },
+    "Sparrow": {
+        "sprite": "sparrow",
+        "shape": [
+            80,
+            70
+        ],
+        "blend": "sparrow.blend"
+    },
+    "Splinter": {
+        "sprite": "splinter",
+        "shape": [
+            240,
+            110
+        ],
+        "blend": "splinter.blend"
+    },
+    "Star Barge": {
+        "sprite": "star barge",
+        "shape": [
+            80,
+            70
+        ],
+        "blend": "star barge.blend"
+    },
+    "Star Queen": {
+        "sprite": "star queen",
+        "shape": [
+            240,
+            100
+        ],
+        "blend": "star queen.blend"
+    },
+    "Surveillance Drone": {
+        "sprite": "surveillance drone",
+        "shape": [
+            60,
+            40
+        ],
+        "blend": "surveillance drone.blend"
+    },
+    "Vanguard": {
+        "sprite": "vanguard",
+        "shape": [
+            267,
+            113
+        ],
+        "blend": "vanguard.blend"
+    },
+    "Wasp": {
+        "sprite": "wasp",
+        "shape": [
+            86,
+            70
+        ],
+        "blend": "wasp.blend"
+    },
+    "Marauder Arrow": {
+        "sprite": "marrows",
+        "shape": [
+            140,
+            60
+        ],
+        "blend": "marrows.blend"
+    },
+    "Marauder Arrow\" \"Marauder Arrow (Engines)": {
+        "sprite": "marrowe",
+        "shape": [
+            140,
+            60
+        ],
+        "blend": "marrowe.blend"
+    },
+    "Marauder Arrow\" \"Marauder Arrow (Weapons)": {
+        "sprite": "marroww",
+        "shape": [
+            140,
+            60
+        ],
+        "blend": "marroww.blend"
+    },
+    "Marauder Bounder": {
+        "sprite": "mbounders",
+        "shape": [
+            170,
+            110
+        ],
+        "blend": "mbounders.blend"
+    },
+    "Marauder Bounder\" \"Marauder Bounder (Engines)": {
+        "sprite": "mboundere",
+        "shape": [
+            170,
+            110
+        ],
+        "blend": "mboundere.blend"
+    },
+    "Marauder Bounder\" \"Marauder Bounder (Weapons)": {
+        "sprite": "mbounderw",
+        "shape": [
+            170,
+            110
+        ],
+        "blend": "mbounderw.blend"
+    },
+    "Marauder Falcon": {
+        "sprite": "mfalcons",
+        "shape": [
+            300,
+            160
+        ],
+        "blend": "mfalcons.blend"
+    },
+    "Marauder Falcon\" \"Marauder Falcon (Engines)": {
+        "sprite": "mfalcone",
+        "shape": [
+            300,
+            160
+        ],
+        "blend": "mfalcone.blend"
+    },
+    "Marauder Falcon\" \"Marauder Falcon (Weapons)": {
+        "sprite": "mfalconw",
+        "shape": [
+            300,
+            160
+        ],
+        "blend": "mfalconw.blend"
+    },
+    "Marauder Firebird": {
+        "sprite": "mfirebirds",
+        "shape": [
+            160,
+            130
+        ],
+        "blend": "mfirebirds.blend"
+    },
+    "Marauder Firebird\" \"Marauder Firebird (Engines)": {
+        "sprite": "mfirebirde",
+        "shape": [
+            160,
+            130
+        ],
+        "blend": "mfirebirde.blend"
+    },
+    "Marauder Firebird\" \"Marauder Firebird (Weapons)": {
+        "sprite": "mfirebirdw",
+        "shape": [
+            160,
+            130
+        ],
+        "blend": "mfirebirdw.blend"
+    },
+    "Marauder Leviathan": {
+        "sprite": "mleviathans",
+        "shape": [
+            260,
+            170
+        ],
+        "blend": "mleviathans.blend"
+    },
+    "Marauder Leviathan\" \"Marauder Leviathan (Engines)": {
+        "sprite": "mleviathane",
+        "shape": [
+            260,
+            170
+        ],
+        "blend": "mleviathane.blend"
+    },
+    "Marauder Leviathan\" \"Marauder Leviathan (Weapons)": {
+        "sprite": "mleviathanw",
+        "shape": [
+            260,
+            170
+        ],
+        "blend": "mleviathanw.blend"
+    },
+    "Marauder Manta": {
+        "sprite": "mmantas",
+        "shape": [
+            170,
+            150
+        ],
+        "blend": "mmantas.blend"
+    },
+    "Marauder Manta\" \"Marauder Manta (Engines)": {
+        "sprite": "mmantae",
+        "shape": [
+            170,
+            150
+        ],
+        "blend": "mmantae.blend"
+    },
+    "Marauder Manta\" \"Marauder Manta (Weapons)": {
+        "sprite": "mmantaw",
+        "shape": [
+            170,
+            150
+        ],
+        "blend": "mmantaw.blend"
+    },
+    "Marauder Quicksilver": {
+        "sprite": "mquicksilvers",
+        "shape": [
+            110,
+            80
+        ],
+        "blend": "mquicksilvers.blend"
+    },
+    "Marauder Quicksilver\" \"Marauder Quicksilver (Engines)": {
+        "sprite": "mquicksilvere",
+        "shape": [
+            110,
+            80
+        ],
+        "blend": "mquicksilvere.blend"
+    },
+    "Marauder Quicksilver\" \"Marauder Quicksilver (Weapons)": {
+        "sprite": "mquicksilverw",
+        "shape": [
+            110,
+            80
+        ],
+        "blend": "mquicksilverw.blend"
+    },
+    "Marauder Raven": {
+        "sprite": "mravens",
+        "shape": [
+            140,
+            200
+        ],
+        "blend": "mravens.blend"
+    },
+    "Marauder Raven\" \"Marauder Raven (Engines)": {
+        "sprite": "mravene",
+        "shape": [
+            140,
+            200
+        ],
+        "blend": "mravene.blend"
+    },
+    "Marauder Raven\" \"Marauder Raven (Weapons)": {
+        "sprite": "mravenw",
+        "shape": [
+            140,
+            200
+        ],
+        "blend": "mravenw.blend"
+    },
+    "Marauder Splinter": {
+        "sprite": "msplinters",
+        "shape": [
+            240,
+            110
+        ],
+        "blend": "msplinters.blend"
+    },
+    "Marauder Splinter\" \"Marauder Splinter (Engines)": {
+        "sprite": "msplintere",
+        "shape": [
+            240,
+            110
+        ],
+        "blend": "msplintere.blend"
+    },
+    "Marauder Splinter\" \"Marauder Splinter (Weapons)": {
+        "sprite": "msplinterw",
+        "shape": [
+            240,
+            110
+        ],
+        "blend": "msplinterw.blend"
+    }
+}
