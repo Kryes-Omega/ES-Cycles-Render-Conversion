@@ -2,6 +2,8 @@ import bpy
 import os
 import json
 import sys
+import mathutils
+from mathutils import Vector
 
 print("BEGINNING OF RUN")
 
@@ -15,6 +17,7 @@ print("affected files:")
 print(ships)
 print("\n")
 ship_dict = {}
+skipped = []
 
 def cleanup():
 	# delete unused data
@@ -128,7 +131,7 @@ def main():
 				print(filepath)
 				break
 		if file == "":
-			print("skipping " + key)
+			skipped.append(key)
 			continue
 
 		name_to_dir = str(os.path.splitext(file)[0]) + "/"
@@ -155,24 +158,21 @@ def main():
 		# move off to the side and make a copy of the original
 		bpy.context.view_layer.objects.active = bpy.data.objects[0]
 		bpy.ops.object.select_all(override, action="SELECT")
-		# veiw3d ops don"t like my overridden context for some reason, so I just do it manually. If it could be fixed it would make me happy.
 		bpy.ops.view3d.snap_selected_to_cursor(override, use_offset=True)
 		bpy.ops.object.duplicate(override, linked=False, mode="INIT")
 
-		# make list_obj a list of currently selected objects
 
 		# create the ship object for rendering and move it to center
 		bpy.ops.object.convert(override, target="MESH")
-		bpy.ops.object.join(override) # don"t ask me why I had to cancel the select for this override. Seriously. I don"t know.
+		bpy.ops.object.join(override)
 
-		# dew it again
 		bpy.context.scene.cursor.location = (0.0, 0.0, 0.0)
 
 		bpy.ops.object.transform_apply(override, location=False, rotation=True, scale=True)
 		bpy.ops.object.origin_set(override, type="ORIGIN_CENTER_OF_VOLUME")
 		bpy.ops.view3d.snap_selected_to_cursor(override, use_offset=True)
 
-		# resize the ship object... and rename it at the same time for simplicity
+		# resize, rename, and center the object
 		for o in bpy.context.scene.objects:
 			if o.select_get():
 				o.name = "ship_obj"
@@ -185,9 +185,20 @@ def main():
 					bpy.data.objects[o.name].dimensions[1] = 9.0
 					scale = bpy.data.objects[o.name].scale[1]
 				bpy.data.objects[o.name].scale = (scale, scale, scale)
-		
+				# the scale needs to be applied otherwise blender will act like a gremlin and you will hate your life.
+				bpy.ops.object.transform_apply(override, scale=True)
 
+		# math to find the bounding box center for the ship. This is will allow the script to actually center the object for the camera
+		local_bbox_center = 0.125 * sum((Vector(b) for b in bpy.data.objects["ship_obj"].bound_box), Vector())
+		print(local_bbox_center)
+		print(bpy.data.objects["ship_obj"].matrix_world)
+		global_bbox_center = bpy.data.objects["ship_obj"].matrix_world @ local_bbox_center
+		print(global_bbox_center)
+		bpy.context.scene.cursor.location = global_bbox_center
+		print(bpy.context.scene.cursor.location)
 
+		bpy.ops.object.origin_set(override, type="ORIGIN_CURSOR")
+		bpy.data.objects["ship_obj"].location = (0.0, 0.0, 0.0)
 
 
 		# convert materials to Principled shaders with basic settings
@@ -234,7 +245,7 @@ def main():
 			if name == "sprite":
 				Camera.location = (0.0, 0.0, 10.0)
 				bpy.data.cameras[name + "Camera"].type = "ORTHO"
-				bpy.data.cameras[name + "Camera"].ortho_scale = 12.0
+				bpy.data.cameras[name + "Camera"].ortho_scale = 9.3
 
 				SunKey.location = (5.4, 4.65, 3.8)
 				SunKey.rotation_euler = (1.3, 0.51, 2.08)
@@ -320,6 +331,9 @@ def main():
 	
 
 	print("\nTask finished.")
+	print("skipped:\n")
+	print(skipped)
+
 
 if __name__ == "__main__":
 	main()
