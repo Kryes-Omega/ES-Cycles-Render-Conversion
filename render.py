@@ -43,22 +43,6 @@ def cleanup():
 			bpy.data.collections.remove(block)
 	return
 
-def settings(shape = [1080, 1080]):
-	# set up render settings
-	print("\n" + "Changing render settings...")
-	bpy.context.scene.render.engine = "CYCLES"
-	bpy.context.scene.cycles.device = "GPU"
-	bpy.context.scene.cycles.samples = 128
-	bpy.context.scene.render.tile_y = 128
-	bpy.context.scene.render.tile_x = 128
-	bpy.context.scene.render.resolution_x = shape[1]
-	bpy.context.scene.render.resolution_y = shape[0]
-	bpy.context.scene.render.image_settings.compression = 100
-	bpy.context.scene.render.resolution_percentage = 100
-	# output path must be done in render block
-
-	return
-
 # overrideArea will change the area context to whatever is specified. If the area is not present on the screen, it changes the first area to the needed one.
 def overrideArea(override_area):
 	# make a new copy of the context to edit
@@ -117,6 +101,90 @@ def setup():
 	print(in_dict_not_ships)
 	return
 
+def render(angle, file, shape=[1080, 1080]):
+	print("\n" + "Changing render settings...")
+	bpy.context.scene.render.engine = "CYCLES"
+	bpy.context.scene.cycles.device = "GPU"
+	bpy.context.scene.cycles.samples = 128
+	bpy.context.scene.render.tile_y = 128
+	bpy.context.scene.render.tile_x = 128
+	bpy.context.scene.render.image_settings.compression = 100
+
+	bpy.context.view_layer.active_layer_collection = bpy.context.view_layer.layer_collection.children[angle + " render"]
+	bpy.context.scene.camera = bpy.data.objects[angle + "Camera"]
+
+	for coll in bpy.data.collections:
+		# if the collection is a render collection but is not the specified one, hide it.
+		if coll.name[-6:] == "render" and not coll.name == (angle + " render"):
+			print("Hiding " + coll.name)
+			coll.hide_render = True
+		else:
+			print("Unhiding " + coll.name)
+			coll.hide_render = False
+
+	anim = False
+	name_to_dir = str(os.path.splitext(file)[0]) + "/"
+	if angle == "sprite":
+
+		bpy.context.scene.render.resolution_x = shape[1]
+		bpy.context.scene.render.resolution_y = shape[0]
+
+		for obj in bpy.data.objects:
+			if obj.animation_data is not None:
+				anim = True
+				break
+		if anim == True:
+			# render normal size
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]), "-#")
+			print("outputting to " + outputpath)
+			bpy.context.scene.render.filepath = outputpath
+			bpy.context.scene.render.resolution_percentage = 100
+			print("Rendering " + angle + " animation...")
+			bpy.ops.render.render(animation=True)
+
+			# render 2x
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]), "@2x-#")
+			bpy.context.scene.render.filepath = outputpath
+			bpy.context.scene.render.resolution_percentage = 200
+			print("Rendering " + angle + " 2x animation...")
+			bpy.ops.render.render(animation=True)
+
+		else:
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]))
+			print("outputting to " + outputpath)
+			bpy.context.scene.render.filepath = outputpath
+			bpy.context.scene.render.resolution_percentage = 100
+			print("Rendering " + angle + "image...")
+			bpy.ops.render.render(write_still=True)
+
+			# render 2x
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]) + "@2x")
+			bpy.context.scene.render.filepath = outputpath
+			bpy.context.scene.render.resolution_percentage = 200
+			print("Rendering " + angle + "2x image...")
+			bpy.ops.render.render(write_still=True)
+
+	elif angle == "thumb":
+
+		bpy.context.scene.render.resolution_x = 260
+		bpy.context.scene.render.resolution_y = 260
+
+		outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", str(os.path.splitext(file)[0]))
+		print("outputting to " + outputpath)
+		bpy.context.scene.render.filepath = outputpath
+		bpy.context.scene.render.resolution_percentage = 100
+		print("Rendering " + angle + "image...")
+		bpy.ops.render.render(write_still=True)
+
+		outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", str(os.path.splitext(file)[0]) + "@2x")
+		bpy.context.scene.render.filepath = outputpath
+		bpy.context.scene.render.resolution_percentage = 200
+		print("Rendering " + angle + "2x image...")
+		bpy.ops.render.render(write_still=True)
+
+	# hide collection from render view for next pass
+	bpy.data.collections[angle + " render"].hide_render = True
+
 
 def main():
 	setup()
@@ -147,7 +215,6 @@ def main():
 			if str(value["blend"]).casefold() == file:
 				shape = value["shape"]
 				break
-		settings(shape)
 
 		print("\n" + "Duplicating ship mesh for render...")
 		bpy.context.scene.cursor.location = (25.0, 25.0, 0.0) # move this before editing context because it fucks it up hard
@@ -290,39 +357,8 @@ def main():
 				AreaBack.data.size = 8.03
 				AreaBack.data.cycles.cast_shadow = False
 
-			# set camera, check for animation data, then render appropriately
-			bpy.context.scene.camera = bpy.data.objects[name + "Camera"]
-			anim = False
-			name_to_dir = str(os.path.splitext(file)[0]) + "/"
-			if name == "sprite":
-				for obj in bpy.data.objects:
-					if obj.animation_data is not None:
-						anim = True
-						break
-				if anim == True:
-					outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]), "-#")
-					print("outputting to " + outputpath)
-					bpy.context.scene.render.filepath = outputpath
-					print("Rendering animation...")
-					bpy.ops.render.render(animation=True)
-
-				elif anim == False:
-					outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]))
-					print("outputting to " + outputpath)
-					bpy.context.scene.render.filepath = outputpath
-					print("Rendering " + name + "image...")
-					bpy.ops.render.render(write_still=True)
-
-			elif name == "thumb":
-				outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", str(os.path.splitext(file)[0]))
-				print("outputting to " + outputpath)
-				bpy.context.scene.render.filepath = outputpath
-				print("Rendering " + name + "image...")
-				bpy.ops.render.render(write_still=True)
-
-			# hide collection from render view for next pass
-			bpy.data.collections[name + " render"].hide_render = True
-
+		render(angle="sprite", file=file, shape=shape)
+		render(angle="thumb", file=file, shape=shape)
 		# should be the last thing the script does to a file for obvious reasons
 		print("\n" + "Saving new blend...")
 		outputpath = os.path.join(currentdir, "output/", name_to_dir, file)
