@@ -5,6 +5,7 @@ import sys
 import mathutils
 from mathutils import Vector
 
+
 print("BEGINNING OF RUN")
 
 # os.path.abspath(__file__) returns path to the script
@@ -105,10 +106,16 @@ def render(angle, file, shape=[1080, 1080]):
 	print("\n" + "Changing render settings...")
 	bpy.context.scene.render.engine = "CYCLES"
 	bpy.context.scene.cycles.device = "GPU"
-	bpy.context.scene.cycles.samples = 128
+	bpy.context.scene.cycles.samples = 512
 	bpy.context.scene.render.tile_y = 128
 	bpy.context.scene.render.tile_x = 128
 	bpy.context.scene.render.image_settings.compression = 100
+	bpy.context.view_layer.cycles.use_denoising = True
+	bpy.context.view_layer.cycles.denoising_strength = 0.25
+	bpy.context.view_layer.cycles.denoising_feature_strength = 0.25
+
+
+
 
 	bpy.context.view_layer.active_layer_collection = bpy.context.view_layer.layer_collection.children[angle + " render"]
 	bpy.context.scene.camera = bpy.data.objects[angle + "Camera"]
@@ -273,8 +280,16 @@ def main():
 		for mat in bpy.data.materials:
 			if mat.use_nodes == False:
 				mat.use_nodes = True
-				mat.node_tree.nodes["Principled BSDF"].inputs[4].default_value = 1.0
-				mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.76
+				mat.node_tree.nodes["Principled BSDF"].inputs[4].default_value = 1.0 # fully metallic
+				# change roughness depending on basic material name
+				if mat.name[:7].casefold() == "painted":
+					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.75
+				elif mat.name[:5].casefold() == "metal":
+					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.6
+				elif mat.name[:6].casefold() == "bridge":
+					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.42
+				else:
+					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.57
 
 
 
@@ -315,10 +330,10 @@ def main():
 				bpy.data.cameras[name + "Camera"].ortho_scale = 9.3
 
 				SunKey.location = (5.4, 4.65, 3.8)
-				SunKey.rotation_euler = (1.3, 0.51, 2.08)
-				SunKey.data.color = (1.0, 0.75, 0.7)
-				SunKey.data.energy = 4.2
-				SunKey.data.angle = 0.611
+				SunKey.rotation_euler = (0, 1.22, 0.909)
+				SunKey.data.color = (1.0, 0.845, 0.812)
+				SunKey.data.energy = 3.05
+				SunKey.data.angle = 0.226
 
 				AreaFill.location = (4.5, 2.0, 2.4)
 				AreaFill.rotation_euler = (0.0, 1.1, 0.28)
@@ -333,11 +348,10 @@ def main():
 				AreaBack.data.size = 12.0
 				AreaBack.data.cycles.cast_shadow = False
 			elif name == "thumb":
-				Camera.location = (13.5, 23.8, 18.6)
+				Camera.location = (14.5, 23.8, 19.2)
 				Camera.rotation_euler = (0.96, 0.0, 2.62)
 				bpy.data.cameras[name + "Camera"].type = "ORTHO"
-				bpy.data.cameras[name + "Camera"].ortho_scale = 10.7
-
+				bpy.data.cameras[name + "Camera"].ortho_scale = pow(1.17, bpy.data.objects["ship_obj"].dimensions[0]) + 6
 				SunKey.location = (5.1, 1.3, 2.0)
 				SunKey.rotation_euler = (0.0, 1.2, 0.12)
 				SunKey.data.color = (1.0, 0.91, 0.66)
