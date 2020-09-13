@@ -275,7 +275,7 @@ def main():
 		bpy.data.objects["ship_obj"].location = (0.0, 0.0, 0.0)
 
 
-		# convert materials to Principled shaders with basic settings
+		# convert materials to Principled shaders using different settings depending on material name
 		print("\n" + "Converting materials...")
 		for mat in bpy.data.materials:
 			if mat.use_nodes == False:
@@ -331,14 +331,14 @@ def main():
 
 				SunKey.location = (5.4, 4.65, 3.8)
 				SunKey.rotation_euler = (0, 1.22, 0.909)
-				SunKey.data.color = (1.0, 0.845, 0.812)
+				SunKey.data.color = (1.0, 0.8, 0.763)
 				SunKey.data.energy = 3.05
-				SunKey.data.angle = 0.226
+				SunKey.data.angle = 0.087
 
 				AreaFill.location = (4.5, 2.0, 2.4)
-				AreaFill.rotation_euler = (0.0, 1.1, 0.28)
-				AreaFill.data.color = (0.335, 0.72, 1.0)
-				AreaFill.data.energy = 205.0
+				AreaFill.rotation_euler = (0.0, 1.04, 0.424)
+				AreaFill.data.color = (0.5, 0.76, 1.0)
+				AreaFill.data.energy = 142.6
 				AreaFill.data.size = 9.12
 
 				AreaBack.location = (-4.4, -3.4, 4.3)
