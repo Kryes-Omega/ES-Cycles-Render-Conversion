@@ -104,7 +104,7 @@ def setup():
 	print(in_dict_not_ships)
 	return
 
-def render(angle, file, shape=[1080, 1080]):
+def render(angle, file, shape=[1080, 1080], outputname=str(os.path.splitext(file)[0])):
 	print("\n" + "Changing render settings...")
 	bpy.context.scene.render.engine = "CYCLES"
 	bpy.context.scene.cycles.device = "GPU"
@@ -143,7 +143,7 @@ def render(angle, file, shape=[1080, 1080]):
 				break
 		if anim == True:
 			# render normal size
-			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]), "-#")
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", outputname, "-#")
 			print("outputting to " + outputpath)
 			bpy.context.scene.render.filepath = outputpath
 			bpy.context.scene.render.resolution_percentage = 100
@@ -151,14 +151,14 @@ def render(angle, file, shape=[1080, 1080]):
 			bpy.ops.render.render(animation=True)
 
 			# render 2x
-			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]), "@2x-#")
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", outputname, "@2x-#")
 			bpy.context.scene.render.filepath = outputpath
 			bpy.context.scene.render.resolution_percentage = 200
 			print("Rendering " + angle + " 2x animation...")
 			bpy.ops.render.render(animation=True)
 
 		else:
-			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]))
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", outputname)
 			print("outputting to " + outputpath)
 			bpy.context.scene.render.filepath = outputpath
 			bpy.context.scene.render.resolution_percentage = 100
@@ -166,7 +166,7 @@ def render(angle, file, shape=[1080, 1080]):
 			bpy.ops.render.render(write_still=True)
 
 			# render 2x
-			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", str(os.path.splitext(file)[0]) + "@2x")
+			outputpath = os.path.join(currentdir, "output/", name_to_dir, "sprite/", outputname + "@2x")
 			bpy.context.scene.render.filepath = outputpath
 			bpy.context.scene.render.resolution_percentage = 200
 			print("Rendering " + angle + "2x image...")
@@ -177,14 +177,14 @@ def render(angle, file, shape=[1080, 1080]):
 		bpy.context.scene.render.resolution_x = 260
 		bpy.context.scene.render.resolution_y = 260
 
-		outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", str(os.path.splitext(file)[0]))
+		outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", outputname) # use sprite name from JSON
 		print("outputting to " + outputpath)
 		bpy.context.scene.render.filepath = outputpath
 		bpy.context.scene.render.resolution_percentage = 100
 		print("Rendering " + angle + "image...")
 		bpy.ops.render.render(write_still=True)
 
-		outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", str(os.path.splitext(file)[0]) + "@2x")
+		outputpath = os.path.join(currentdir, "output/", name_to_dir, "thumb/", outputname + "@2x")
 		bpy.context.scene.render.filepath = outputpath
 		bpy.context.scene.render.resolution_percentage = 200
 		print("Rendering " + angle + "2x image...")
@@ -219,9 +219,11 @@ def main():
 
 		# before this point, a JSON file containing ship dimensions should be read and the dimensions passed to settings() so it can adjust accordingly
 		shape = []
+		outputname = ""
 		for key, value in ship_dict.items():
 			if str(value["blend"]).casefold() == file:
 				shape = value["shape"]
+				outputname = value["sprite"]
 				break
 
 		print("\n" + "Duplicating ship mesh for render...")
@@ -381,8 +383,8 @@ def main():
 				AreaBack.data.size = 8.03
 				AreaBack.data.cycles.cast_shadow = False
 
-		render(angle="sprite", file=file, shape=shape)
-		render(angle="thumb", file=file, shape=shape)
+		render(angle="sprite", file=file, shape=shape, outputname=outputname)
+		render(angle="thumb", file=file, shape=shape, outputname=outputname)
 
 		cleanup()
 		# should be the last thing the script does to a file for obvious reasons
