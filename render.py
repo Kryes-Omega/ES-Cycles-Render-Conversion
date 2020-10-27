@@ -11,7 +11,9 @@ print("BEGINNING OF RUN")
 # os.path.abspath(__file__) returns path to the script
 currentdir = bpy.path.abspath("//")
 print("script dir: " + currentdir)
-shipdir = os.path.join(currentdir, "ships/")
+librarydir = os.path.join(currentdir, "library.blend")
+print("library: " + currentdir)
+shipdir = os.path.join(currentdir, "ship blend/") 
 print("ships dir: " + shipdir)
 ships = os.listdir(shipdir)
 print("affected files:")
@@ -22,7 +24,7 @@ skipped = []
 
 def cleanup():
 	# delete unused data
-	print("\n" + "Cleaning up for conversion...")
+	print("\n" + "Purging orphans...")
 	for obj in bpy.data.lights:
 		print("deleted" + str(obj))
 		bpy.data.lights.remove(obj, do_unlink=True)
@@ -113,8 +115,7 @@ def render(angle, file, shape=[1080, 1080]):
 	bpy.context.view_layer.cycles.use_denoising = True
 	bpy.context.view_layer.cycles.denoising_strength = 0.25
 	bpy.context.view_layer.cycles.denoising_feature_strength = 0.25
-
-
+	bpy.context.scene.world.light_settings.use_ambient_occlusion = False
 
 
 	bpy.context.view_layer.active_layer_collection = bpy.context.view_layer.layer_collection.children[angle + " render"]
@@ -277,9 +278,14 @@ def main():
 
 		# convert materials to Principled shaders using different settings depending on material name
 		print("\n" + "Converting materials...")
+		print(os.path.join(librarydir, "Materials", "GMD"))
+		with bpy.data.libraries.load(librarydir) as (data_from, data_to):
+			data_to.materials = data_from.materials
 		for mat in bpy.data.materials:
 			if mat.use_nodes == False:
+				original_color = mat.diffuse_color
 				mat.use_nodes = True
+				mat.node_tree.nodes["Principled BSDF"].inputs[0].default_value = original_color
 				mat.node_tree.nodes["Principled BSDF"].inputs[4].default_value = 1.0 # fully metallic
 				# change roughness depending on basic material name
 				if mat.name[:7].casefold() == "painted":
@@ -291,6 +297,10 @@ def main():
 				else:
 					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.57
 
+		# Change the metal textures over to the GMD texture as a... hopefully temporary measure
+		for mat_slot in bpy.data.objects["ship_obj"].material_slots:
+			if mat_slot.material is None or mat_slot.material.name[:5].casefold() == "metal" or mat_slot.material.name[:5].casefold():
+				mat_slot.material = bpy.data.materials["GMD"]
 
 
 
@@ -373,6 +383,8 @@ def main():
 
 		render(angle="sprite", file=file, shape=shape)
 		render(angle="thumb", file=file, shape=shape)
+
+		cleanup()
 		# should be the last thing the script does to a file for obvious reasons
 		print("\n" + "Saving new blend...")
 		outputpath = os.path.join(currentdir, "output/", name_to_dir, file)
