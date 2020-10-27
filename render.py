@@ -12,7 +12,7 @@ print("BEGINNING OF RUN")
 currentdir = bpy.path.abspath("//")
 print("script dir: " + currentdir)
 librarydir = os.path.join(currentdir, "library.blend")
-print("library: " + currentdir)
+print("library: " + librarydir)
 shipdir = os.path.join(currentdir, "ship blend/") 
 print("ships dir: " + shipdir)
 ships = os.listdir(shipdir)
@@ -79,6 +79,7 @@ def setup():
 		jsonfile = os.path.join(currentdir, "render_info.json")
 		with open(jsonfile) as f:
 			ship_dict = json.load(f)
+			print("We made it here!")
 
 	# make two arrays to hold the missings
 	in_ships_not_dict = []
@@ -104,7 +105,7 @@ def setup():
 	print(in_dict_not_ships)
 	return
 
-def render(angle, file, shape=[1080, 1080], outputname=str(os.path.splitext(file)[0])):
+def render(angle, file, shape=[1080, 1080], outputname="undefined.png"):
 	print("\n" + "Changing render settings...")
 	bpy.context.scene.render.engine = "CYCLES"
 	bpy.context.scene.cycles.device = "GPU"
