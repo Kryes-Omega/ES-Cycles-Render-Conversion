@@ -79,7 +79,6 @@ def setup():
 		jsonfile = os.path.join(currentdir, "render_info.json")
 		with open(jsonfile) as f:
 			ship_dict = json.load(f)
-			print("We made it here!")
 
 	# make two arrays to hold the missings
 	in_ships_not_dict = []
@@ -224,7 +223,7 @@ def main():
 		for key, value in ship_dict.items():
 			if str(value["blend"]).casefold() == file:
 				shape = value["shape"]
-				outputname = value["sprite"]
+				outputname = key.lower()
 				break
 
 		print("\n" + "Duplicating ship mesh for render...")
@@ -302,7 +301,7 @@ def main():
 
 		# Change the metal textures over to the GMD texture as a... hopefully temporary measure
 		for mat_slot in bpy.data.objects["ship_obj"].material_slots:
-			if mat_slot.material is None or mat_slot.material.name[:5].casefold() == "metal" or mat_slot.material.name[:5].casefold():
+			if mat_slot.material is None or mat_slot.material.name[:5].casefold() == "metal":
 				mat_slot.material = bpy.data.materials["GMD"]
 
 
