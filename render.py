@@ -292,17 +292,16 @@ def main():
 				# change roughness depending on basic material name
 				if mat.name[:7].casefold() == "painted":
 					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.75
-				elif mat.name[:5].casefold() == "metal":
-					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.6
 				elif mat.name[:6].casefold() == "bridge":
 					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.42
-				else:
-					mat.node_tree.nodes["Principled BSDF"].inputs[7].default_value = 0.57
 
-		# Change the metal textures over to the GMD texture as a... hopefully temporary measure
+		# Change the "metal", unlabeled, and no material objects to the GMD texture
 		for mat_slot in bpy.data.objects["ship_obj"].material_slots:
 			if mat_slot.material is None or mat_slot.material.name[:5].casefold() == "metal":
 				mat_slot.material = bpy.data.materials["GMD"]
+			elif mat_slot.material.name[:7].casefold() != "painted" and mat_slot.material.name[:6].casefold() != "bridge":
+				mat_slot.material = bpy.data.materials["GMD"]
+
 
 
 
